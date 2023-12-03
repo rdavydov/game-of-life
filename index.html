@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра "Жизнь"</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Панель управления -->
+    <div id="controls">
+        <!-- Поле ввода для размера поля -->
+        <label for="size">Размер поля:</label>
+        <input type="number" id="size" min="10" max="1000" value="50">
+        <!-- Кнопки для инициализации и старта/остановки игры -->
+        <button onclick="initializeGame()">Инициализировать</button>
+        <button onclick="toggleGame()">Старт/Стоп</button>
+    </div>
+    <!-- Отображение текущего поколения -->
+    <div id="generation">Поколение: 0</div>
+    <!-- Контейнер для игрового поля -->
+    <div id="game-container"></div>
+
+    <!-- Подключение скрипта -->
+    <script src="script.js"></script>
+</body>
+</html>
