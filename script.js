@@ -43,13 +43,46 @@ function toggleGame() {
     }
 }
 
+let cells;
+
+// Создание игрового поля с учетом выбора цвета грида
+function createGrid() {
+    // Получение контейнера для игрового поля
+    const gameContainer = document.getElementById('game-container');
+    // Очистка содержимого контейнера
+    gameContainer.innerHTML = '';
+    cells = [];
+
+    // Установка количества колонок в зависимости от размера поля
+    gameContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+
+    // Рассчитываем размер клеток на основе размера поля
+    const cellSizeW = `calc(80vw / ${gridSize})`;
+    const cellSizeH = `calc(60vh / ${gridSize})`;
+
+
+    // Создание клеток игрового поля
+    for (let i = 0; i < gridSize * gridSize; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.addEventListener('click', toggleCell);
+        // Устанавливаем стили для размера клетки
+        cell.style.width = cellSizeW;
+        cell.style.height = cellSizeH;
+        cell.style.borderColor = gridColor; // Установка цвета грида
+        cells.push(cell); // Cache the reference to the cell
+        gameContainer.appendChild(cell);
+    }
+}
+
 // Генерация следующего поколения
 function generateNextGeneration() {
     // Создаем новый массив для хранения состояния следующего поколения
     const nextGenerationState = [];
+    
 
     // Получаем все клетки текущего поколения
-    const cells = document.getElementsByClassName('cell');
+    // const cells = document.getElementsByClassName('cell');
 
     // Цикл по всем клеткам текущего поколения
     for (let i = 0; i < cells.length; i++) {
@@ -98,34 +131,6 @@ function generateNextGeneration() {
     
     // Обновляем отображение текущего поколения на странице
     document.getElementById('generation').innerText = `Поколение: ${generationCount}`;
-}
-
-// Создание игрового поля с учетом выбора цвета грида
-function createGrid() {
-    // Получение контейнера для игрового поля
-    const gameContainer = document.getElementById('game-container');
-    // Очистка содержимого контейнера
-    gameContainer.innerHTML = '';
-
-    // Установка количества колонок в зависимости от размера поля
-    gameContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-
-    // Рассчитываем размер клеток на основе размера поля
-    const cellSizeW = `calc(80vw / ${gridSize})`;
-    const cellSizeH = `calc(60vh / ${gridSize})`;
-
-
-    // Создание клеток игрового поля
-    for (let i = 0; i < gridSize * gridSize; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'cell';
-        cell.addEventListener('click', toggleCell);
-        // Устанавливаем стили для размера клетки
-        cell.style.width = cellSizeW;
-        cell.style.height = cellSizeH;
-        cell.style.borderColor = gridColor; // Установка цвета грида
-        gameContainer.appendChild(cell);
-    }
 }
 
 // Инициализация начального состояния поля
