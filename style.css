@@ -16,34 +16,25 @@ body {
     gap: 10px;
     justify-content: center;
     padding: 10px;
-    background-color: #fff;
     align-items: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Стили для игрового поля */
-#game-container {
-    display: grid;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Стили для клеток игрового поля */
-.cell {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #000000;
-}
-
-/* Стили для активных клеток */
-.cell.active {
-    background-color: #3498db; /* Цвет клетки */
 }
 
 /* Стили для отображения текущего поколения */
 #generation {
-    margin-top: 10px;
+    margin-top: 0.3em;
     font-size: 18px;
-    margin-bottom: 20px; /* Отступ между поколением и игровым полем */
+    margin-bottom: 0.8em; /* Отступ между поколением и игровым полем */
+    padding: 0.3em;
+}
+
+#controls, #grid-canvas, #generation {
+    /* border: 1px solid #000000; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#controls, #generation {
+    border-radius: 5px;
+    background-color: #fff;
 }
 
 /* Адаптивная верстка */
