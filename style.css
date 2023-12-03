@@ -1,0 +1,36 @@
+/* Стили для страницы */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+/* Стили для панели управления */
+#controls {
+    margin-bottom: 10px;
+}
+
+/* Стили для игрового поля */
+#game-container {
+    display: grid;
+    border: 1px solid #ccc;
+}
+
+/* Стили для клеток игрового поля */
+.cell {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #eee;
+}
+
+/* Стили для активных клеток */
+.cell.active {
+    background-color: #3498db;
+}
+
+/* Стили для отображения текущего поколения */
+#generation {
+    margin-top: 10px;
+}
