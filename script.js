@@ -30,6 +30,61 @@ function toggleGame() {
     }
 }
 
+// Генерация следующего поколения
+function generateNextGeneration() {
+    // Создаем новый массив для хранения состояния следующего поколения
+    const nextGenerationState = [];
+
+    // Получаем все клетки текущего поколения
+    const cells = document.getElementsByClassName('cell');
+
+    // Цикл по всем клеткам текущего поколения
+    for (let i = 0; i < cells.length; i++) {
+        const cell = cells[i];
+        const x = i % gridSize; // Получение координаты по горизонтали
+        const y = Math.floor(i / gridSize); // Получение координаты по вертикали
+        const neighbors = countNeighbors(x, y); // Подсчет соседей для текущей клетки
+
+        // Определяем состояние клетки в следующем поколении
+        let nextCellState = cell.classList.contains('active'); // По умолчанию остается такой же
+
+        // Логика игры "Жизнь"
+        if (cell.classList.contains('active')) { // Если клетка активна
+            if (neighbors < 2 || neighbors > 3) {
+                // Если соседей меньше 2 или больше 3, клетка умирает
+                nextCellState = false;
+            }
+        } else {
+            if (neighbors === 3) {
+                // Если ровно 3 соседа, клетка становится активной
+                nextCellState = true;
+            }
+        }
+
+        // Добавляем состояние клетки в массив для следующего поколения
+        nextGenerationState.push(nextCellState);
+    }
+
+    // Применяем состояние следующего поколения к клеткам
+    for (let i = 0; i < cells.length; i++) {
+        const cell = cells[i];
+        const nextCellState = nextGenerationState[i];
+
+        // Устанавливаем или убираем активное состояние в зависимости от следующего поколения
+        if (nextCellState) {
+            cell.classList.add('active');
+        } else {
+            cell.classList.remove('active');
+        }
+    }
+
+    // Увеличиваем счетчик поколений
+    generationCount++;
+    
+    // Обновляем отображение текущего поколения на странице
+    document.getElementById('generation').innerText = `Поколение: ${generationCount}`;
+}
+
 // Создание игрового поля
 function createGrid() {
     // Получение контейнера для игрового поля
