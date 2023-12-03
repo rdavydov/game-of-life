@@ -203,10 +203,13 @@ function countNeighbors(x, y) {
             const neighborIndex = neighborY * gridSize + neighborX;
 
             // Получаем ссылку на соседнюю клетку по индексу
-            const neighborCell = document.getElementsByClassName('cell')[neighborIndex];
+            // const neighborCell = document.getElementsByClassName('cell')[neighborIndex];
 
             // Увеличиваем счетчик, если сосед активен и не является самой клеткой
-            if (neighborCell.classList.contains('active') && !(i === 0 && j === 0)) {
+            // if (neighborCell.classList.contains('active') && !(i === 0 && j === 0)) {
+            //     count++;
+            // }
+            if (cells[neighborIndex].classList.contains('active') && !(i === 0 && j === 0)) {
                 count++;
             }
         }
