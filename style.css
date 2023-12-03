@@ -21,24 +21,6 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Стили для игрового поля */
-#game-container {
-    display: grid;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Стили для клеток игрового поля */
-.cell {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #000000;
-}
-
-/* Стили для активных клеток */
-.cell.active {
-    background-color: #3498db; /* Цвет клетки */
-}
-
 /* Стили для отображения текущего поколения */
 #generation {
     margin-top: 10px;
@@ -52,4 +34,10 @@ body {
         flex-direction: column;
         align-items: flex-start;
     }
+}
+
+/* Стили для canvas */
+#grid-canvas {
+    /* border: 1px solid #000000; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
