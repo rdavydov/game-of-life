@@ -39,11 +39,11 @@ function toggleGame() {
         clearInterval(intervalId);
         intervalId = null;
     } else {
-        intervalId = setInterval(generateNextGeneration, 100);
+        intervalId = setInterval(generateNextGeneration, 200); // интервал между генерациями следующего поколения, влияет на производительность
     }
 }
 
-let cells;
+let cells = [];
 
 // Создание игрового поля с учетом выбора цвета грида
 function createGrid() {
@@ -51,7 +51,7 @@ function createGrid() {
     const gameContainer = document.getElementById('game-container');
     // Очистка содержимого контейнера
     gameContainer.innerHTML = '';
-    cells = [];
+    const fragment = document.createDocumentFragment(); // Создаем фрагмент для добавления клеток
 
     // Установка количества колонок в зависимости от размера поля
     gameContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
@@ -59,7 +59,6 @@ function createGrid() {
     // Рассчитываем размер клеток на основе размера поля
     const cellSizeW = `calc(80vw / ${gridSize})`;
     const cellSizeH = `calc(60vh / ${gridSize})`;
-
 
     // Создание клеток игрового поля
     for (let i = 0; i < gridSize * gridSize; i++) {
@@ -70,9 +69,11 @@ function createGrid() {
         cell.style.width = cellSizeW;
         cell.style.height = cellSizeH;
         cell.style.borderColor = gridColor; // Установка цвета грида
-        cells.push(cell); // Cache the reference to the cell
-        gameContainer.appendChild(cell);
+        cells.push(cell); // Кэшируем ссылку на клетку
+        fragment.appendChild(cell);
     }
+    // Добавляем созданные клетки в контейнер
+    gameContainer.appendChild(fragment);    
 }
 
 // Генерация следующего поколения
