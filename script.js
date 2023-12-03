@@ -1,28 +1,35 @@
 // Переменные для управления игрой
-let gridSize = 20; // Размер поля по умолчанию
+let gridSize = 70; // Размер поля по умолчанию
 let intervalId; // Идентификатор интервала для автоматической генерации следующего поколения
 let generationCount = 0; // Счетчик поколений
 let cellColor = '#3498db';
-let gridColor = '#eee';
+let gridColor = '#000000';
 let bgColor = '#f5f5f5';
 
 // Инициализация игры при загрузке страницы
 function initializeGame() {
-    // Получение настроек из полей для ввода
+    // Получение размера поля из поля ввода
     gridSize = parseInt(document.getElementById('size').value);
-    cellColor = document.getElementById('cellColor').value;
-    gridColor = document.getElementById('gridColor').value;
-    bgColor = document.getElementById('bgColor').value;    
+    generationCount = 0;
 
     // Остановка текущего процесса эволюции
     clearInterval(intervalId);
-    generationCount = 0;
     document.getElementById('generation').innerText = 'Поколение: 0';
+
+    // Получение выбранных цветов из контролов
+    cellColor = document.getElementById('cell-color').value;
+    gridColor = document.getElementById('grid-color').value;
+    bgColor = document.getElementById('bg-color').value;
+
+    // Установка цвета фона страницы
+    document.body.style.backgroundColor = bgColor;
 
     // Создание и инициализация игрового поля
     createGrid();
     initializeGrid();
-    renderGrid();
+
+    // Обновление отображения текущего поколения на странице
+    document.getElementById('generation').innerText = `Поколение: ${generationCount}`;
 }
 
 // Запуск и остановка эволюции
@@ -103,11 +110,19 @@ function createGrid() {
     // Установка количества колонок в зависимости от размера поля
     gameContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
 
+    // Рассчитываем размер клеток на основе размера поля
+    const cellSizeW = `calc(80vw / ${gridSize})`;
+    const cellSizeH = `calc(60vh / ${gridSize})`;
+
+
     // Создание клеток игрового поля
     for (let i = 0; i < gridSize * gridSize; i++) {
         const cell = document.createElement('div');
         cell.className = 'cell';
         cell.addEventListener('click', toggleCell);
+        // Устанавливаем стили для размера клетки
+        cell.style.width = cellSizeW;
+        cell.style.height = cellSizeH;
         cell.style.borderColor = gridColor; // Установка цвета грида
         gameContainer.appendChild(cell);
     }
@@ -127,6 +142,10 @@ function initializeGrid() {
         if (Math.random() < 0.2) {
             cell.classList.add('active');
         }
+        
+        // Устанавливаем цвет клетки в соответствии с выбранным цветом
+        cell.style.backgroundColor = cell.classList.contains('active') ? cellColor : '';
+        // cell.style.borderColor = gridColor;        
     }
 }
 
