@@ -1,5 +1,5 @@
 // Переменные для управления игрой
-let gridSize = 50; // Размер поля по умолчанию
+let gridSize = 20; // Размер поля по умолчанию
 let intervalId; // Идентификатор интервала для автоматической генерации следующего поколения
 let generationCount = 0; // Счетчик поколений
 let cellColor = '#3498db';
@@ -79,8 +79,10 @@ function generateNextGeneration() {
         // Устанавливаем или убираем активное состояние в зависимости от следующего поколения
         if (nextCellState) {
             cell.classList.add('active');
+            cell.style.backgroundColor = cellColor; // Устанавливаем цвет клетки
         } else {
             cell.classList.remove('active');
+            cell.style.backgroundColor = ''; // Убираем цвет клетки
         }
     }
 
@@ -144,10 +146,12 @@ function renderGrid() {
         if (cell.classList.contains('active')) { // Если клетка активна
             if (neighbors < 2 || neighbors > 3) { // Если соседей меньше 2 или больше 3
                 cell.classList.remove('active'); // Убираем активное состояние
+                cell.style.backgroundColor = ''; // Убираем цвет клетки
             }
         } else { // Если клетка неактивна
             if (neighbors === 3) { // Если ровно 3 соседа
                 cell.classList.add('active'); // Устанавливаем активное состояние
+                cell.style.backgroundColor = cellColor; // Устанавливаем цвет клетки
             }
         }
     }
