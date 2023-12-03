@@ -2,15 +2,21 @@
 let gridSize = 50; // Размер поля по умолчанию
 let intervalId; // Идентификатор интервала для автоматической генерации следующего поколения
 let generationCount = 0; // Счетчик поколений
+let cellColor = '#3498db';
+let gridColor = '#eee';
+let bgColor = '#f5f5f5';
 
 // Инициализация игры при загрузке страницы
 function initializeGame() {
-    // Получение размера поля из поля ввода
+    // Получение настроек из полей для ввода
     gridSize = parseInt(document.getElementById('size').value);
-    generationCount = 0;
+    cellColor = document.getElementById('cellColor').value;
+    gridColor = document.getElementById('gridColor').value;
+    bgColor = document.getElementById('bgColor').value;    
 
     // Остановка текущего процесса эволюции
     clearInterval(intervalId);
+    generationCount = 0;
     document.getElementById('generation').innerText = 'Поколение: 0';
 
     // Создание и инициализация игрового поля
@@ -85,7 +91,7 @@ function generateNextGeneration() {
     document.getElementById('generation').innerText = `Поколение: ${generationCount}`;
 }
 
-// Создание игрового поля
+// Создание игрового поля с учетом выбора цвета грида
 function createGrid() {
     // Получение контейнера для игрового поля
     const gameContainer = document.getElementById('game-container');
@@ -100,6 +106,7 @@ function createGrid() {
         const cell = document.createElement('div');
         cell.className = 'cell';
         cell.addEventListener('click', toggleCell);
+        cell.style.borderColor = gridColor; // Установка цвета грида
         gameContainer.appendChild(cell);
     }
 }
@@ -121,7 +128,7 @@ function initializeGrid() {
     }
 }
 
-// Отрисовка текущего состояния поля
+// Отрисовка текущего состояния поля с учетом выбора цвета клетки
 function renderGrid() {
     // Получение всех клеток
     const cells = document.getElementsByClassName('cell');
@@ -182,8 +189,10 @@ function countNeighbors(x, y) {
 }
 
 // Переключение состояния клетки при клике
+// Добавлены стили для установки цвета клетки
 function toggleCell() {
     this.classList.toggle('active');
+    this.style.backgroundColor = this.classList.contains('active') ? cellColor : '';
 }
 
 // Инициализация игры при загрузке страницы
